@@ -1,27 +1,44 @@
-.row {
-	child-space: 1s;
+
+.list {
 	col-between: 20px;
 }
 
-button.dec {
-	background-color: rgb(150, 40, 40);
-	transition: background-color 100ms;
+textbox {
+	width: 1s;
 }
 
-button.inc {
-	background-color: rgb(40, 150, 40);
+hstack {
+	height: auto;
+	col-between: 10px;
+	child-top: 1s;
+	child-bottom: 1s;
 }
 
-label.count {
+vstack {
+	height: 1s;
+	row-between: 10px;
+}
+
+button {
+	width: 1s;
 	child-space: 1s;
-	border-width: 1px;
-	border-color: #808080;
-	border-radius: 4px;
-	width: 50px;
-	height: 32px;
 }
 
-button.dec:hover {
-	background-color: rgb(255, 77, 106);
-	transition: background-color 100ms;
+list label {
+	width: 1s;
+	height: 32px;
+	child-left: 5px;
+	child-top: 1s;
+	child-bottom: 1s;
+}
+
+list label:checked {
+	background-color: #5050AA40;
+}
+
+list {
+	border-color: white;
+	border-width: 1px;
+	width: 1s;
+	height: 1s;
 }

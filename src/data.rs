@@ -1,15 +1,41 @@
 use vizia::prelude::*;
-use crate::events::AppEvent;
+use crate::events::TodoEvent;
 #[derive(Lens)]
-pub struct AppData {
-	pub count: i32,
+pub struct  TodoList {
+	pub todos: Vec<TodoItem>,
+	pub new_title: String
 }
 
-impl Model for AppData {
-	fn event(&mut self, cx: &mut EventContext, event: &mut Event) {
-		event.map(|app_event, meta| match app_event {
-				AppEvent::Decrement => self.count -= 1,
-				AppEvent::Increment => self.count += 1,
-		});
+#[derive(Clone)]
+pub struct TodoItem {
+	pub title: String,
+	pub done: bool
 }
+
+impl Model for TodoList {
+	fn event(&mut self, _cx: &mut EventContext, event: &mut Event) {
+		event.map(|todo_event, _| match todo_event {
+
+			TodoEvent::SetTitle(title) => {
+				self.new_title = title.clone();
+			}
+
+			TodoEvent::Create => {
+				if !self.new_title.is_empty() {
+					self.todos.push(TodoItem { title: self.new_title.clone(), done: false });
+					self.new_title = "".to_string();
+				}
+			},
+
+			TodoEvent::Delete(index) => {
+				self.todos.remove(index.clone());
+			},
+
+			TodoEvent::Complete(index) => {
+				self.todos[*index].done = !self.todos[*index].done;
+			}
+
+		})
+	}
+
 }

@@ -1,7 +1,7 @@
 mod ui;
 mod data;
 mod events;
-use data::AppData;
+use data::{TodoList, TodoItem};
 use ui::ui_builder;
 use vizia::prelude::*;
 
@@ -11,10 +11,12 @@ fn main() {
         // Add the stylesheet to the app
         cx.add_stylesheet(include_style!("src/styles/style.css")).expect("Failed to load stylesheet");
 
-        // Build the data into the application
-        AppData{count: 0}.build(cx);
+
+        // Build the App Data
+        TodoList{new_title: "".to_string(), todos: vec![TodoItem{ title: "Do a thing".to_string(), done: false}]}
+        .build(cx);
         
-        // Contents
+        // App User interface
         ui_builder(cx);
     })
     .title("Todo Vizia")
